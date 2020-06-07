@@ -1,0 +1,536 @@
+#:import Factory kivy.factory.Factory
+<SmallLabel@Label>:
+	text_size: self.size
+	font_size: '12sp'
+    bold: True
+    text_size: self.size
+    halign: 'right'
+    color: 0,0,0,1
+<TextInput@TextInput>:
+	font_size: '12sp'
+		
+
+    
+<WelcomeScreen>: # Identifies layout/interactivity for the WelcomeScreen.
+    canvas:
+        Color:
+            #rgba: 0.6,0.6,0.5,1
+            rgba: 1,1,1,1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    GridLayout: # Creates a GridLayout for WelcomeScreen.
+        cols: 1 # Sets column property to 1.
+        #Label: # Creates a Label Widget instance.
+            #text: "Entera Changeout App. Please choose what type of file you'd like to make:" # Sets above Label text property
+        Image:
+            source: 'entera-8850.jpg'
+            #allow_stretch: True
+            size_hint_y: 2.5
+        GridLayout:
+            cols: 2
+            rows: 2
+            Button: # Creates a Button Widget instance.
+                text: 'Pole Removal' #  Sets above button text property
+                background_color: 0.1,0.7,1,1
+                padding_y: 0.3
+                on_release:
+                    root.manager.current = 'poleremove' # Switches Kivy GUI screen to screen one.
+            Button: # Creates a Button Widget instance.
+                text: 'Pole Install' #  Sets above button text property
+                background_color: 0.1,0.7,1,1
+                padding_y: 0.3
+                on_release:
+                # on_release is a Kivy mouse release event.
+                    root.manager.current = 'poleinstall' # Switches Kivy GUI screen to screen two.
+
+                
+                
+                
+<PoleRemoval>: # Identifies layout/interactivity for the FirstScreen.
+    canvas:
+        #Color:
+            #rgba: 0,0.3,0.5,1
+            #rgba: 1,1,1,1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'lineman2.png'
+    GridLayout: # Creates a GridLayout for FirstScreen.
+        cols: 2 # Sets column property to 1.
+        SmallLabel:
+            text_size: self.size
+            color: 0,0,0,1 
+            bold: True
+            halign: 'right'
+            text: "Entera Job Number (required):"
+            size_hint_x: 0.3
+        TextInput:
+            id: entera
+            size_hint_x: 0.7
+        SmallLabel:
+            text_size: self.size
+            color: 0,0,0,1
+            halign: 'right'
+            bold: True
+            text: "PM Order Number:"
+        TextInput:
+            id: PMO
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Date changed:"
+        DatePicker:
+            id: change
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Pole Number:"
+        TextInput:
+            id: polenum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Functional Location Number:"
+        TextInput:
+            id: funcnum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Location Number (TX or SW)::"
+        TextInput:
+            id: locnum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "City Name:"
+        Spinner:
+            id: locname
+            #background_normal: ''
+            #background_color: 1,1,1,0.5
+            text: "Toronto"                   #default value showed
+            values: ["Toronto","Scarborough","North York","Etobicoke","East York","York"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Street Number:"
+        TextInput:
+            id: streetnum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Street Name:"
+        TextInput:
+            id: streetname
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Direction:"
+        Spinner:
+            id: directionspinner
+            text: "North"                   #default value showed
+            values: ["North","South","East","West"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Street Position:"
+        Spinner:
+            id: streetpos
+            text: "Boulevard"                   #default value showed
+            values: ["Boulevard","Rearlot","Lane","Right of Way","Other"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Status of Pole:"
+        Spinner:
+            id: locstatus
+            text: "New Location"                   #default value showed
+            values: ["Abandoned in place","New Location","In Service","Vacant","Decomissioned"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Pole height:"
+        Spinner:
+            id: poleheightremoval
+            text: "40 Feet"                   #default value showed
+            values: ["40 feet","45 feet","50 feet","55 feet"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Pole Material:"
+        Spinner:
+            id: polematerial
+            text: "Wood"                   #default value showed
+            values: ["Wood","Steel","Concrete","Aluminum","Other"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Stub Pole?:"
+        Spinner:
+            id: stub
+            text: "No"                   #default value showed
+            values: ["Yes","No"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Comments?:"
+        TextInput:
+            id: comments
+        Button:
+            text: "Attach Photos"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.show_load()
+        Button:
+            text: "Make and upload to Dropbox"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.pressed()
+        Button:
+            text: "Main Menu"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.manager.transition.direction = 'right' # Sets screen transition movement to right.
+                root.manager.current = 'welcome_screen' # Switches Kivy GUI screen to the welcome screen.
+        Button:
+            text: "Help!"
+            background_color: 2,0,0,1
+            on_release: Factory.MyPopup().open()
+            
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        text_size: self.width, None
+        orientation: "vertical"
+        FileChoose:
+            id: filechooser
+            text: "Click to choose before photo"
+            on_release: self.choose()
+        FileChoose:
+            id: filechooser2
+            text: "Click to choose after photo"
+            on_release: self.choose()
+
+        BoxLayout:
+            size_hint_y: 0.3
+            height: 30
+            Button:
+                text: "Close"
+                on_release: root.cancel()
+
+<LoadDialog2>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        text_size: self.width, None
+        orientation: "vertical"
+        FileChoose:
+            id: filechooser
+            text: "Click to choose before photo"
+            on_release: self.choose2()
+        FileChoose:
+            id: filechooser2
+            text: "Click to choose after photo"
+            on_release: self.choose2()
+
+        BoxLayout:
+            size_hint_y: 0.3
+            height: 30
+            Button:
+                text: "Close"
+                on_release: root.cancel()
+                
+<PoleInstall>: # Identifies layout/interactivity for the SecondScreen.
+    canvas:
+        #Color:
+            #rgba: 0,0.3,0.5,1
+            #rgba: 1,1,1,1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'lineman2.png'
+    GridLayout: # Creates a GridLayout for FirstScreen.
+        cols: 2 # Sets column property to 1.
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "PM Order Number:"
+        TextInput:
+            id: PMO
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Date changed:"
+        DatePicker:
+            id: change
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Pole Number:"
+        TextInput:
+            id: polenum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Functional Location Number:"
+        TextInput:
+            id: funcnum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Location Number (TX or SW)::"
+        TextInput:
+            id: locnum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Ciy Name:"
+        Spinner:
+            id: locname
+            #background_normal: ''
+            #background_color: 1,1,1,0.5
+            text: "Toronto"                   #default value showed
+            values: ["Toronto","Scarborough","North York","Etobicoke","East York","York"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Street Number:"
+        TextInput:
+            id: streetnum
+        SmallLabel:
+            text: "Street Name:"
+        TextInput:
+            id: streetname
+        SmallLabel:
+            text: "Direction:"
+        Spinner:
+            id: directionspinner
+            text: "North"                   #default value showed
+            values: ["North","South","East","West"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        #TextInput:
+            #id: direction
+        SmallLabel:
+            text: "Street Position:"
+        Spinner:
+            id: streetpos
+            text: "Boulevard"                   #default value showed
+            values: ["Boulevard","Rearlot","Lane","Right of Way","Other"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Status of Pole:"
+        TextInput:
+            id: locstatus
+        SmallLabel:
+            text: "Pole Owner:"
+        TextInput:
+            id: poleowner
+        SmallLabel:
+            text: "Pole Height:"
+        Spinner:
+            id: poleheightinstall
+            text: "40 Feet"                   #default value showed
+            values: ["40 feet","45 feet","50 feet","55 feet"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Stock Code Number:"
+        TextInput:
+            id: stocknum
+        SmallLabel:
+            text: "Pole Material:"
+        Spinner:
+            id: polematerial
+            text: "Wood"                   #default value showed
+            values: ["Wood","Steel","Concrete","Aluminum","Other"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Pole Setting:"
+        TextInput:
+            id: polesetting
+        SmallLabel:
+            text: "Pole Framing:"
+        TextInput:
+            id: poleframing
+        SmallLabel:
+            text: "Surface Mounted?:"
+        Spinner:
+            id: surface
+            text: "No"                   #default value showed
+            values: ["Yes","No"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Joint use?:"
+        Spinner:
+            id: jointuse
+            text: "No"                   #default value showed
+            values: ["Yes","No"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+            
+        SmallLabel:
+            text: "Traffic Lights?:"
+        Spinner:
+            id: traffic
+            text: "No"                   #default value showed
+            values: ["Yes","No"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Pole Top Extenstion?:"
+        Spinner:
+            id: topext
+            text: "No"                   #default value showed
+            values: ["Yes","No"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "TTC Feeder?:"
+        Spinner:
+            id: feeder
+            text: "No"                   #default value showed
+            values: ["Yes","No"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Street Light?:"
+        Spinner:
+            id: streetlight
+            text: "No"                   #default value showed
+            values: ["Yes","No"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Riser/Dip?:"
+        Spinner:
+            id: riser
+            text: "No"                   #default value showed
+            values: ["Yes","No"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "TTC Suspension?:"
+        Spinner:
+            id: suspension
+            text: "No"                   #default value showed
+            values: ["Yes","No"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Signs?:"
+        Spinner:
+            id: signs
+            text: "No"                   #default value showed
+            values: ["Yes","No"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Guy installed?:"
+        Spinner:
+            id: guy
+            text: "No"                   #default value showed
+            values: ["Yes","No"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        Button:
+            text: "Attach Photos"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.show_load2()
+        Button:
+            text: "Make and upload to Dropbox"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.pressed()
+        Button:
+            text: "Main Menu"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.manager.transition.direction = 'right' # Sets screen transition movement to right.
+                root.manager.current = 'welcome_screen' # Switches Kivy GUI screen to the welcome screen.
+        Button:
+            text: "Help!"
+            background_color: 2,0,0,1
+            on_release: Factory.MyPopup().open()
+            
+            
+<MyPopup@Popup>:
+    auto_dismiss: False
+    title: "Please call Entera IT department for help"
+    size_hint: (0.5, 0.5)
+    Button:
+        text: 'Help is not yet implemented! '
+        on_release: root.dismiss()                
+
+                
+                
+                
+                
+                

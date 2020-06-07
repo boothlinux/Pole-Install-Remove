@@ -1,0 +1,393 @@
+#:import Factory kivy.factory.Factory
+<SmallLabel@Label>:
+	text_size: self.size
+	font_size: '12sp'
+    bold: True
+    text_size: self.size
+    halign: 'right'
+    color: 0,0,0,1
+<TextInput@TextInput>:
+	font_size: '12sp'
+		
+
+    
+<WelcomeScreen>: # Identifies layout/interactivity for the WelcomeScreen.
+    canvas:
+        Color:
+            #rgba: 0.6,0.6,0.5,1
+            rgba: 1,1,1,1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    GridLayout: # Creates a GridLayout for WelcomeScreen.
+        cols: 1 # Sets column property to 1.
+        #Label: # Creates a Label Widget instance.
+            #text: "Entera Changeout App. Please choose what type of file you'd like to make:" # Sets above Label text property
+        Image:
+            source: 'entera-8850.jpg'
+            #allow_stretch: True
+            size_hint_y: 2.5
+        GridLayout:
+            cols: 2
+            rows: 2
+            Button: # Creates a Button Widget instance.
+                text: 'Streetlight Removal' #  Sets above button text property
+                background_color: 0.1,0.7,1,1
+                padding_y: 0.3
+                on_release:
+                    root.manager.current = 'poleremove' # Switches Kivy GUI screen to screen one.
+            Button: # Creates a Button Widget instance.
+                text: 'Streetlight Install' #  Sets above button text property
+                background_color: 0.1,0.7,1,1
+                padding_y: 0.3
+                on_release:
+                # on_release is a Kivy mouse release event.
+                    root.manager.current = 'poleinstall' # Switches Kivy GUI screen to screen two.
+
+                
+                
+                
+<PoleRemoval>: # Identifies layout/interactivity for the FirstScreen.
+    canvas:
+        #Color:
+            #rgba: 0,0.3,0.5,1
+            #rgba: 1,1,1,1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'lineman2.png'
+    GridLayout: # Creates a GridLayout for FirstScreen.
+        cols: 2 # Sets column property to 1.
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "PM Order Number:"
+        TextInput:
+            id: PMO
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Date changed:"
+        DatePicker:
+            id: change
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Pole Number:"
+        TextInput:
+            id: polenum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Functional Location Number:"
+        TextInput:
+            id: funcnum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Location Number (TX or SW)::"
+        TextInput:
+            id: locnum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Ciy Name:"
+        Spinner:
+            id: region
+            text: "Toronto"                 
+            values: ["Etobicoke","North York","Scarborough","East York","York","Toronto"] 
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Street Number:"
+        TextInput:
+            id: streetnum
+        SmallLabel:
+            text: "Street Name:"
+        TextInput:
+            id: streetname
+        SmallLabel:
+            text: "Street Position:"
+        TextInput:
+            id: streetpos
+        SmallLabel:
+            text: "Location Status:"
+        Spinner:
+            id: locstatus
+            text: "New Location"                 
+            values: ["In Service","Decomissioned","New Location"] 
+            on_text:
+                root.on_spinner_select(self.text)
+                
+        SmallLabel:
+            text: "Owner:"
+        Spinner:
+            id: Owner
+            text: "TH Energy Services"                 
+            values: ["City (Parks, Transporation, etc)","BIA","Private","TH Energy Services"] 
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Additional Location Details:"
+        TextInput:
+            id: addloc
+        SmallLabel:
+            text: "Streetlight Fixture removed?:"
+        Spinner:
+            id: fixremove
+            text: "Streetlight fixture WAS removed"                 
+            values: ["Streetlight fixture WAS NOT removed","Streetlight fixture WAS removed"] 
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Streetlight Bracket removed?:"
+        Spinner:
+            id: bracketremove
+            text: "Streetlight bracket WAS removed"                 
+            values: ["Streetlight bracket WAS NOT removed","Streetlight bracket WAS removed"] 
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Comments?:"
+        TextInput:
+            id: comments
+        Button:
+            text: "Attach Photos"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.show_load()
+        Button:
+            text: "Make and upload to Dropbox"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.pressed()
+        Button:
+            text: "Main Menu"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.manager.transition.direction = 'right' # Sets screen transition movement to right.
+                root.manager.current = 'welcome_screen' # Switches Kivy GUI screen to the welcome screen.
+        Button:
+            text: "Help!"
+            background_color: 2,0,0,1
+            on_release: Factory.MyPopup().open()
+            
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        text_size: self.width, None
+        orientation: "vertical"
+        FileChoose:
+            id: filechooser
+            text: "Click to choose before photo"
+            on_release: self.choose()
+        FileChoose:
+            id: filechooser2
+            text: "Click to choose after photo"
+            on_release: self.choose()
+
+        BoxLayout:
+            size_hint_y: 0.3
+            height: 30
+            Button:
+                text: "Close"
+                on_release: root.cancel()
+
+<LoadDialog2>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        text_size: self.width, None
+        orientation: "vertical"
+        FileChoose:
+            id: filechooser
+            text: "Click to choose before photo"
+            on_release: self.choose2()
+        FileChoose:
+            id: filechooser2
+            text: "Click to choose after photo"
+            on_release: self.choose2()
+
+        BoxLayout:
+            size_hint_y: 0.3
+            height: 30
+            Button:
+                text: "Close"
+                on_release: root.cancel()
+                
+<PoleInstall>: # Identifies layout/interactivity for the SecondScreen.
+    canvas:
+        #Color:
+            #rgba: 0,0.3,0.5,1
+            #rgba: 1,1,1,1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'lineman2.png'
+    GridLayout: # Creates a GridLayout for FirstScreen.
+        cols: 2 # Sets column property to 1.
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "PM Order Number:"
+        TextInput:
+            id: PMO
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Date changed:"
+        DatePicker:
+            id: change
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Pole Number:"
+        TextInput:
+            id: polenum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Functional Location Number:"
+        TextInput:
+            id: funcnum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Location Number (TX or SW)::"
+        TextInput:
+            id: locnum
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Ciy Name:"
+        Spinner:
+            id: region
+            text: "Toronto"                   #default value showed
+            values: ["North York","Scarborough","East York","Etobicoke","York","Toronto"]       #list of values to show
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            bold: True
+            text_size: self.size
+            halign: 'right'
+            color: 0,0,0,1
+            text: "Street Number:"
+        TextInput:
+            id: streetnum
+        SmallLabel:
+            text: "Street Name:"
+        TextInput:
+            id: streetname
+        SmallLabel:
+            text: "Street Position:"
+        TextInput:
+            id: streetpos
+        SmallLabel:
+            text: "Location Status:"
+        Spinner:
+            id: locstatus
+            text: "New Location"                 
+            values: ["In Service","Decomissioned","New Location"] 
+            on_text:
+                root.on_spinner_select(self.text)
+                
+        SmallLabel:
+            text: "Owner:"
+        Spinner:
+            id: owner
+            text: "TH Energy Services"                 
+            values: ["City (Parks, Transporation, etc)","BIA","Private","TH Energy Services"] 
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Additional Location Details:"
+        TextInput:
+            id: addloc
+        SmallLabel:
+            text: "Streetlight Fixture removed?:"
+        Spinner:
+            id: fixremove
+            text: "Streetlight fixture WAS removed"                 
+            values: ["Streetlight fixture WAS NOT removed","Streetlight fixture WAS removed"] 
+            on_text:
+                root.on_spinner_select(self.text)
+        SmallLabel:
+            text: "Streetlight Bracket removed?:"
+        Spinner:
+            id: bracketremove
+            text: "Streetlight bracket WAS removed"                 
+            values: ["Streetlight bracket WAS NOT removed","Streetlight bracket WAS removed"] 
+            on_text:
+                root.on_spinner_select(self.text)
+        Button:
+            text: "Attach Photos"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.show_load2()
+        Button:
+            text: "Make and upload to Dropbox"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.pressed()
+        Button:
+            text: "Main Menu"
+            background_color: 0.1,0.7,1,1
+            on_release:
+                root.manager.transition.direction = 'right' # Sets screen transition movement to right.
+                root.manager.current = 'welcome_screen' # Switches Kivy GUI screen to the welcome screen.
+        Button:
+            text: "Help!"
+            background_color: 2,0,0,1
+            on_release: Factory.MyPopup().open()
+            
+            
+<MyPopup@Popup>:
+    auto_dismiss: False
+    title: "Please call Entera IT department for help"
+    size_hint: (0.5, 0.5)
+    Button:
+        text: 'Help is not yet implemented! '
+        on_release: root.dismiss()                
+
+                
+                
+                
+                
+                
